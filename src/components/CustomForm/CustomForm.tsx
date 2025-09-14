@@ -6,7 +6,13 @@ import { schema, type FormValues } from "./models"
 const CustomForm = () => {
     const {control, handleSubmit, formState: { errors }} = useForm<FormValues>({
       resolver: zodResolver(schema), // Integrar Zod con React Hook Form
-      mode: "onBlur" // Validar al perder el foco
+      mode: "onBlur", // Validar al perder el foco
+      defaultValues: {
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      }
     });
   
     const onSubmit: SubmitHandler<FormValues> = (data) => {
