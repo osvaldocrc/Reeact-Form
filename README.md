@@ -1,69 +1,70 @@
-# React + TypeScript + Vite
+React Form Validation with Zod and React Hook Form
+This project is a clean and reusable form component built with React, leveraging the power of Zod for schema validation and React Hook Form for efficient state management.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Key Features
+Custom Form Component: A flexible form that can be easily integrated into any React application.
 
-Currently, two official plugins are available:
+Schema Validation with Zod: All form fields are validated using a robust Zod schema, ensuring data integrity before submission.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Reusable Input Component: The InputForm component is a customizable wrapper for HTML <input> elements, simplifying form creation and error handling.
 
-## Expanding the ESLint configuration
+Efficient State Management: React Hook Form minimizes re-renders, providing a smooth user experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Installation
+To get the project up and running, follow these steps:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Clone the repository:
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Bash
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+git clone https://github.com/osvaldocrc/Reeac-Form.git
+Navigate to the project directory:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Bash
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+cd Reeac-Form
+Install the dependencies:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Bash
+
+npm install
+or
+
+Bash
+
+yarn install
+or
+
+Bash
+
+bun install
+Usage
+This project demonstrates a standard login/registration form structure. You can easily adapt the CustomForm and schema files to meet your specific needs.
+
+Form Structure
+The form includes the following fields with their corresponding validation rules:
+
+Name: Required.
+
+Email: Required and must be a valid email format.
+
+Password: Required, with a minimum length of 6 characters.
+
+Confirm Password: Required, with a minimum length of 6 characters, and must match the Password field.
+
+Code Overview
+CustomForm.tsx: The main form component that handles the form's state and submission.
+
+models/index.ts: Defines the Zod validation schema and the corresponding TypeScript type (FormValues).
+
+components/InputForm.tsx: A reusable input component that displays validation errors.
+
+Dependencies
+react-hook-form: For managing form state and validation.
+
+zod: For powerful schema validation.
+
+@hookform/resolvers: To integrate Zod with React Hook Form.
+
+Contributing
+Feel free to open issues or submit pull requests to improve this project.
