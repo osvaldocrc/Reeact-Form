@@ -1,70 +1,112 @@
-React Form Validation with Zod and React Hook Form
-This project is a clean and reusable form component built with React, leveraging the power of Zod for schema validation and React Hook Form for efficient state management.
+# Custom React Form with Validation
 
-Key Features
-Custom Form Component: A flexible form that can be easily integrated into any React application.
+This project demonstrates how to build a custom form in **React** using **React Hook Form** for form handling and **Zod** for schema-based validation.
 
-Schema Validation with Zod: All form fields are validated using a robust Zod schema, ensuring data integrity before submission.
+The form includes fields for name, email, password, and password confirmation with real-time validation and error display.
 
-Reusable Input Component: The InputForm component is a customizable wrapper for HTML <input> elements, simplifying form creation and error handling.
+## 📦 Tech Stack
 
-Efficient State Management: React Hook Form minimizes re-renders, providing a smooth user experience.
+- **React** (with TypeScript)
+- **React Hook Form** – Form state management
+- **Zod** – Schema-based validation
+- **@hookform/resolvers** – Integration between React Hook Form and Zod
 
-Installation
-To get the project up and running, follow these steps:
+## 📁 Project Structure
 
-Clone the repository:
+src/
+├── components/
+│ └── CustomInput.tsx # Reusable input component with validation
+├── models/
+│ └── index.ts # Zod schema and TypeScript types
+├── CustomForm.tsx # Main form component
+└── CustomInput.css # Basic styles for inputs
 
-Bash
+---
 
-git clone https://github.com/osvaldocrc/Reeac-Form.git
-Navigate to the project directory:
+## 🚀 Getting Started
 
-Bash
+### Prerequisites
 
-cd Reeac-Form
-Install the dependencies:
+Ensure you have the following installed:
 
-Bash
+- Node.js (v14+)
+- npm or yarn
 
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+Install dependencies:
+
+bash
+Copiar código
 npm install
-or
-
-Bash
-
+# or
 yarn install
-or
+Start the development server:
 
-Bash
+bash
+Copiar código
+npm run dev
+# or
+yarn dev
 
-bun install
-Usage
-This project demonstrates a standard login/registration form structure. You can easily adapt the CustomForm and schema files to meet your specific needs.
+🧩 How It Works
+1. Form Schema Validation with Zod
+Validation rules are defined using Zod:
 
-Form Structure
-The form includes the following fields with their corresponding validation rules:
 
-Name: Required.
+export const schema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  email: z.string().email({ message: "Invalid email" }).min(1, { message: "Email is required" }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  confirmPassword: z.string().min(6, { message: "Confirmation must be at least 6 characters" }),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"]
+});
+2. Form Component
+The CustomForm component integrates react-hook-form with Zod:
 
-Email: Required and must be a valid email format.
 
-Password: Required, with a minimum length of 6 characters.
+const { control, handleSubmit, formState: { errors } } = useForm<FormValues>({
+  resolver: zodResolver(schema)
+});
+3. Reusable Input Component
+<InputForm /> handles form field rendering and error display using the Controller from React Hook Form.
 
-Confirm Password: Required, with a minimum length of 6 characters, and must match the Password field.
 
-Code Overview
-CustomForm.tsx: The main form component that handles the form's state and submission.
+<Controller
+  name={name}
+  control={control}
+  render={({ field }) => (
+    <input {...field} className={`form-control ${error ? "is-invalid" : ""}`} />
+  )}
+/>
+📸 UI Preview
+The form includes the following fields:
 
-models/index.ts: Defines the Zod validation schema and the corresponding TypeScript type (FormValues).
+Name
 
-components/InputForm.tsx: A reusable input component that displays validation errors.
+Email
 
-Dependencies
-react-hook-form: For managing form state and validation.
+Password
 
-zod: For powerful schema validation.
+Confirm Password
 
-@hookform/resolvers: To integrate Zod with React Hook Form.
+Each field displays an inline validation error when applicable.
 
-Contributing
-Feel free to open issues or submit pull requests to improve this project.
+📌 Notes
+Form data is logged to the console on successful submission.
+
+All validation messages are defined in the Zod schema.
+
+You can easily adapt this structure to support other field types or validation logic.
+
+📝 License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+👨‍💻 Author
